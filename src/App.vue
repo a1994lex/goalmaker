@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <div v-if="user === null" class="login">
+    <div v-if="loading" style="height: 100vh;">
+      <loader />
+    </div>
+    <div v-else-if="user === null" class="login">
       <div class="centered">
         <login />
       </div>
@@ -37,13 +40,18 @@
 
 <script>
 import Login from "@/components/Login.vue";
+import Loader from "@/components/Loader.vue";
 export default {
   components: {
-    Login
+    Login,
+    Loader
   },
   computed: {
     user() {
-      return this.$store.state.user;
+      return this.$store.state.user.value;
+    },
+    loading() {
+      return this.$store.state.user.loading;
     }
   },
   async created() {

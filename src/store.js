@@ -6,11 +6,15 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    user: null
+    user: {
+      value: null,
+      loading: true
+    }
   },
   mutations: {
     setUser(state, user) {
-      state.user = user;
+      state.user.value = user;
+      state.user.loading = false;
     }
   },
   actions: {
@@ -43,7 +47,8 @@ export default new Vuex.Store({
     },
     async getUser(context) {
       try {
-        if (this.state.user) return;
+        if (this.state.user.value) return;
+        this.state.loading = true;
         let response = await axios.get("/api/users");
         context.commit("setUser", response.data);
         return "";
