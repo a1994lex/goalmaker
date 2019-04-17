@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <h1>Login to your account</h1>
+  <div v-if="!register">
+    <h1>Welcome to Goalmaker!</h1>
     <form @submit.prevent="login" class="pure-form pure-form-aligned">
       <fieldset>
-        <p class="pure-form-message-inline">All fields are required.</p>
-
         <div class="pure-control-group">
           <label for="username">Username</label>
           <input v-model="username" type="text" placeholder="Username" />
@@ -16,27 +14,44 @@
         </div>
 
         <div class="pure-controls">
+          <button @click="toggleRegister" class="pure-button button-secondary">
+            Register
+          </button>
           <button type="submit" class="pure-button pure-button-primary">
-            Submit
+            Login
           </button>
         </div>
       </fieldset>
     </form>
     <p v-if="error" class="error">{{ error }}</p>
   </div>
+  <div v-else>
+    <span class="back-arrow" @click="toggleRegister"
+      ><i class="fas fa-arrow-left"></i
+    ></span>
+    <register />
+  </div>
 </template>
 
 <script>
+import Register from "@/components/Register.vue";
 export default {
   name: "login",
+  components: {
+    Register
+  },
   data() {
     return {
       username: "",
       password: "",
-      error: ""
+      error: "",
+      register: false
     };
   },
   methods: {
+    toggleRegister() {
+      this.register = !this.register;
+    },
     async login() {
       try {
         this.error = await this.$store.dispatch("login", {
@@ -54,14 +69,27 @@ export default {
 
 <style scoped>
 form {
-  border: 1px solid #ccc;
-  background-color: #eee;
+  border: 1px solid #bfbfbd;
+  background-color: #e6e6e3;
   border-radius: 4px;
   padding: 20px;
 }
 
 .pure-controls {
   display: flex;
+}
+
+.back-arrow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 20px;
+  cursor: pointer;
+  font-size: 2rem;
+}
+
+.back-arrow:hover {
+  opacity: 0.3;
 }
 
 .pure-controls button {

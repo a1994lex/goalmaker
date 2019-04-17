@@ -1,26 +1,56 @@
 <template>
   <div id="app">
-    <div class="pure-menu">
-      <span class="pure-menu-heading">Goalmaker</span>
-      <ul class="pure-menu-list">
-        <li class="pure-menu-item">
-          <router-link to="/" class="pure-menu-link">Home</router-link>
-        </li>
-        <li class="pure-menu-item">
-          <!-- <router-link to="/mypage" class="pure-menu-link">My Page</router-link> -->
-        </li>
-      </ul>
-    </div>
-    <div class="content">
-      <div class="content-padding">
-        <router-view />
+    <div v-if="user === null" class="login">
+      <div class="centered">
+        <login />
       </div>
-      <div class="footer">
-        <a href="https://github.com/a1994lex/goal-tracker">Github</a>
+    </div>
+    <div id="page" v-else>
+      <div class="pure-menu-horizontal">
+        <span class="pure-menu-heading"
+          ><i class="fas fa-clock"></i>Goal Maker</span
+        >
+        <ul class="pure-menu-list">
+          <li class="pure-menu-item">
+            <router-link to="/" class="pure-menu-link">My Goals</router-link>
+          </li>
+          <li class="pure-menu-item">
+            <router-link to="/mypage" class="pure-menu-link"
+              >Team Goals</router-link
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="content">
+        <div class="content-padding">
+          <router-view />
+        </div>
+        <div class="footer">
+          <a href="https://github.com/a1994lex/goal-tracker"
+            >View the source code</a
+          >
+        </div>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+import Login from "@/components/Login.vue";
+export default {
+  components: {
+    Login
+  },
+  computed: {
+    user() {
+      return this.$store.state.user;
+    }
+  },
+  async created() {
+    await this.$store.dispatch("getUser");
+  }
+};
+</script>
 
 <style>
 /* https://color.adobe.com/Ventana-Azul-color-theme-2159606/?showPublished=true */
@@ -29,53 +59,86 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 18px;
-  display: flex;
+  /* display: flex; */
   min-height: 100%;
-  color: #2c3e50;
+  color: #40403f;
 }
 
-.pure-menu {
+body {
+  color: #7f8c8d;
+  display: block;
+  margin: 0;
+}
+
+*:before,
+*:after {
+  box-sizing: border-box;
+  /* https://css-tricks.com/box-sizing/ */
+}
+
+#page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.centered {
+  margin: 20% auto;
+  width: 65%;
+}
+
+.pure-menu-horizontal {
   /* To limit the menu width to the content of the menu: */
   /* display: inline-block; */
   /* Or set the width explicitly: */
-  text-align: left;
-  background: #000;
+  /* text-align: left; */
+  display: flex;
+  justify-content: space-between;
+  background-color: #2d3e50;
 }
 
 .pure-menu-heading {
   color: #fff;
-  font-size: 1.2em;
+  font-size: 1.4em;
   padding: 20px 20px;
-  background-color: #f2385a;
-  margin-bottom: 10px;
+  margin-right: 10px;
+}
+.pure-menu-heading svg {
+  padding-right: 10px;
 }
 
 .pure-menu-link {
   color: #fff;
-  padding: 10px 20px;
+  opacity: 0.6;
+  background-color: transparent;
+  padding: 20px 10px;
   font-weight: 800;
+  line-height: 1.5rem;
 }
 
 .pure-menu-link:hover {
-  background: #333;
+  background-color: transparent;
+  opacity: 0.3;
 }
 
 .pure-menu-link.router-link-exact-active {
-  background: #fff;
-  color: #f2385a;
+  background-color: transparent;
+  color: white;
+  opacity: 1;
+  font-size: 1.5rem;
 }
 
 .footer {
   text-align: center;
   width: 100%;
   padding: 12px 0px;
-  background-color: #f2385a;
+  background-color: #111;
 }
 
 .footer a {
   text-decoration: none;
-  color: white;
-  font-size: 1.5rem;
+  color: #7f8c8d;
+  font-size: 1.1rem;
 }
 
 .footer a:hover {
@@ -93,22 +156,6 @@
   overflow: auto;
   padding: 50px 100px;
   flex: 1;
-}
-
-html {
-  height: 100%;
-  box-sizing: border-box;
-}
-
-body {
-  height: 100%;
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-  /* https://css-tricks.com/box-sizing/ */
 }
 
 .error {

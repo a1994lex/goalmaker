@@ -3,11 +3,9 @@
     <h1>Register for an account</h1>
     <form @submit.prevent="register" class="pure-form pure-form-aligned">
       <fieldset>
-        <p class="pure-form-message-inline">All fields are required.</p>
-
         <div class="pure-control-group">
-          <label for="name">Real Name</label>
-          <input v-model="name" type="text" placeholder="Real Name" />
+          <label for="name">Full Name</label>
+          <input v-model="name" type="text" placeholder="Full Name" />
         </div>
 
         <div class="pure-control-group">
@@ -50,7 +48,7 @@ export default {
           username: this.username,
           password: this.password
         });
-        if (this.error === "") this.$router.push("mypage");
+        if (this.error === "") this.$router.push("/");
       } catch (error) {
         console.log(error);
       }
