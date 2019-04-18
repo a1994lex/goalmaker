@@ -34,7 +34,7 @@
           <router-view />
         </div>
         <div class="footer">
-          <a href="https://github.com/a1994lex/goal-tracker"
+          <a href="https://github.com/a1994lex/goalmaker"
             >View the source code</a
           >
         </div>
