@@ -91,8 +91,10 @@ export default new Vuex.Store({
         this.state.user.loading = true;
         let response = await axios.get("/api/users");
         context.commit("setUser", response.data);
+        this.state.user.loading = false;
         return "";
       } catch (error) {
+        this.state.user.loading = false;
         return "";
       }
     },
