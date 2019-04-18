@@ -98,7 +98,6 @@ export default new Vuex.Store({
     },
     async getGoals(context) {
       try {
-        // console.log("get goals");
         this.state.goals.loading = true;
         let response = await axios.get("/api/goals");
         context.commit("setGoals", response.data);
@@ -110,9 +109,7 @@ export default new Vuex.Store({
     async updateGoal(context, data) {
       try {
         console.log(data);
-        let response = await axios.put(`/api/goals/${data.id}`, data);
-        // context.dispatch("getGoals");
-        // Do I need to update the single goal in the store?
+        await axios.put(`/api/goals/${data.id}`, data);
       } catch (error) {
         return "";
       }
@@ -140,7 +137,6 @@ export default new Vuex.Store({
       await axios.put(`api/goals/${data.goalId}`, {
         checkboxId: data.checkboxId
       });
-      // context.dispatch("getGoals");
     }
   }
 });

@@ -16,7 +16,10 @@
     </div>
     <div v-show="showDetail" class="details">
       <div class="flex-row">
-        <a @click="edit" class="edit"><i class="fa fa-edit"></i></a>
+        <a @click="toggleEdit" class="edit"
+          ><i class="fa fa-edit"></i
+          >{{ editMode === false ? "Edit" : "Editing" }}</a
+        >
         <div class="date">Created {{ formatDate(goal.created) }}</div>
       </div>
       <div v-if="editMode">
@@ -63,7 +66,11 @@
         </div>
       </div>
       <div v-else class="checklist">
-        <div v-for="item in tasks" v-bind:key="item._id" :class="{ 'item-crossed-out': item.done === true}">
+        <div
+          v-for="item in tasks"
+          v-bind:key="item._id"
+          :class="{ 'item-crossed-out': item.done === true }"
+        >
           <input
             type="checkbox"
             v-model="item.done"
@@ -100,8 +107,12 @@ export default {
     }
   },
   methods: {
-    edit() {
-      this.reset(true);
+    toggleEdit() {
+      if (this.editMode) {
+        this.reset(false);
+      } else {
+        this.reset(true);
+      }
     },
     toggleDetail() {
       this.showDetail = !this.showDetail;
@@ -148,14 +159,15 @@ export default {
         description: this.description,
         checklist: this.taskArray,
         id: this.goal._id
-      })
-      this.reset(false)
+      });
+      this.reset(false);
     },
-    async check(id){
-      await this.$store.dispatch("checkOff", {checkboxId: id, goalId: this.goal._id})
-
+    async check(id) {
+      await this.$store.dispatch("checkOff", {
+        checkboxId: id,
+        goalId: this.goal._id
+      });
     }
-
   },
   created() {
     console.log(this.tasks);

@@ -47,7 +47,6 @@ router.get("/", auth.verifyToken, User.verify, async (req, res) => {
 });
 
 router.post("/", auth.verifyToken, User.verify, async (req, res) => {
-  console.log("posting");
   try {
     const data = req.body;
     if (!req.body) return res.sendStatus(400);
@@ -76,20 +75,15 @@ router.post("/", auth.verifyToken, User.verify, async (req, res) => {
 });
 
 router.put("/:id", auth.verifyToken, User.verify, async (req, res) => {
-  console.log("updating");
-  console.log(req.body);
   const id = req.params.id;
   try {
     const goal = await Goal.findOne({ _id: id });
     if (req.body.checkboxId) {
       const itemIndex = goal.checklist.findIndex(i => {
-        console.log(`${i._id} === ${req.body.checkboxId}`);
         return i._id == req.body.checkboxId;
       });
-      console.log(`item index ${itemIndex}`);
       if (itemIndex > -1) {
         goal.checklist[itemIndex].done = !goal.checklist[itemIndex].done;
-        console.log(goal.checklist[itemIndex]);
       }
     }
     if (req.body.title) {
@@ -105,7 +99,6 @@ router.put("/:id", auth.verifyToken, User.verify, async (req, res) => {
       goal.done = Date.now();
     }
     await goal.save();
-    // console.log(goal);
     return res.send(goal);
   } catch (e) {
     console.log(e);
@@ -114,7 +107,6 @@ router.put("/:id", auth.verifyToken, User.verify, async (req, res) => {
 });
 
 router.delete("/:id", auth.verifyToken, User.verify, async (req, res) => {
-  console.log("deleting");
   const id = req.params.id;
   try {
     await Goal.remove({ _id: id }).exec();

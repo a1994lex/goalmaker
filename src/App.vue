@@ -18,7 +18,7 @@
             <router-link to="/" class="pure-menu-link">My Goals</router-link>
           </li>
           <li class="pure-menu-item">
-            <router-link to="/mypage" class="pure-menu-link"
+            <router-link to="/teams" class="pure-menu-link"
               >Team Goals</router-link
             >
           </li>

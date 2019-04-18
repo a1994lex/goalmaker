@@ -13,7 +13,7 @@
           <input v-model="password" type="password" placeholder="Password" />
         </div>
 
-        <div class="pure-controls">
+        <div class="buttons-line">
           <button @click="toggleRegister" class="pure-button button-secondary">
             Register
           </button>
@@ -70,8 +70,9 @@ export default {
 <style scoped>
 form {
   border: 1px solid #bfbfbd;
-  background-color: #e6e6e3;
+  background-color: #2d3e50;
   border-radius: 4px;
+  color: #e6e6e6;
   padding: 20px;
 }
 
@@ -86,6 +87,15 @@ form {
   margin: 20px;
   cursor: pointer;
   font-size: 2rem;
+}
+.buttons-line {
+  float:right;
+}
+.buttons-line button {
+  margin-left: 20px;
+}
+input {
+  background-color: #e6e6e6;
 }
 
 .back-arrow:hover {

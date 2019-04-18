@@ -59,9 +59,10 @@ export default {
 
 <style scoped>
 form {
-  border: 1px solid #ccc;
-  background-color: #eee;
+  border: 1px solid #bfbfbd;
+  background-color: #2d3e50;
   border-radius: 4px;
+  color: #e6e6e6;
   padding: 20px;
 }
 
