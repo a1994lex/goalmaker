@@ -22,6 +22,11 @@
               >Team Goals</router-link
             >
           </li>
+          <li class="pure-menu-item">
+            <a class="pure-menu-link" @click="logout">
+              <i class="fas fa-sign-out-alt"></i>
+            </a>
+          </li>
         </ul>
       </div>
       <div class="content">
@@ -52,6 +57,11 @@ export default {
     },
     loading() {
       return this.$store.state.user.loading;
+    }
+  },
+  methods: {
+    async logout() {
+      await this.$store.dispatch("logout");
     }
   },
   async created() {
@@ -123,6 +133,9 @@ body {
   font-weight: 800;
   line-height: 1.5rem;
 }
+.pure-menu-link svg {
+  font-size: 1.6rem;
+}
 
 .pure-menu-link:hover {
   background-color: transparent;
@@ -162,6 +175,7 @@ body {
 
 .content-padding {
   overflow: auto;
+  position: relative;
   padding: 50px 100px;
   flex: 1;
 }
