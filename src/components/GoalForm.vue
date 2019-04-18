@@ -103,18 +103,13 @@ export default {
       tasks: {}
     };
   },
-  created() {
-    if (this.show) {
-      console.log(" in goal form with " + this.show.goalType);
-      this.type = this.show.goalType;
-    }
-    console.log(this.show);
-  },
   computed: {
     taskArray() {
       return Object.values(this.tasks);
     },
     goalType() {
+      const type = this.$store.state.currentGoalFormType
+      if (typeof type !== "string") return null
       return this.$store.state.currentGoalFormType;
     },
     goalTypeName() {
