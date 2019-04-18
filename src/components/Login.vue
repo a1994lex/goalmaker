@@ -96,6 +96,7 @@ form {
 }
 input {
   background-color: #e6e6e6;
+  color: #2d3e50;
 }
 
 .back-arrow:hover {

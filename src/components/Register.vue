@@ -69,6 +69,10 @@ form {
 .pure-controls {
   display: flex;
 }
+input {
+  background-color: #e6e6e6;
+  color: #2d3e50;
+}
 
 .pure-controls button {
   margin-left: auto;
